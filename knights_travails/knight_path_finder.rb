@@ -1,5 +1,17 @@
 class KnightPathFinder
+  SIZE = 8
   def self.valid_moves(pos)
+    row, col = pos
+    directions = [[-1, 2], [1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1]]
+    valid = []
+    directions.each do |direction|
+      new_row = row + direction[0]
+      new_col = col + direction[1]
+      if new_row >= 0 && new_col >= 0 && new_row < SIZE && new_col < SIZE
+        valid << [new_row, new_col]
+      end
+      valid
+    end
 
   end
 
