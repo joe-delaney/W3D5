@@ -60,9 +60,30 @@ class KnightPathFinder
     available_new_moves
   end
 
+  def find_path(end_pos)
+    end_node = root_node.bfs(end_pos)
+    trace_path_back(end_node)
+  end
+
+  def trace_path_back(end_node)
+    path = []
+    #start trace back at end node
+    current_node = end_node
+    #until we reach root node
+    until current_node.parent.nil?
+      #adds current position to front of path array
+      path.unshift(current_node.value)
+      #move current node up to the next parent
+      current_node = current_node.parent
+    end
+    #add root node after no more parents
+    path.unshift(current_node.value)
+    path
+  end
+
   private
   attr_reader :considered_positions, :root_node
 end
 
 start = KnightPathFinder.new([0, 0])
-p start
+p start.find_path([7, 6])
