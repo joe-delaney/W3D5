@@ -1,3 +1,5 @@
+require_relative 'tree_node.rb'
+
 class KnightPathFinder
   SIZE = 8
   def self.valid_moves(pos)
@@ -10,9 +12,8 @@ class KnightPathFinder
       if new_row >= 0 && new_col >= 0 && new_row < SIZE && new_col < SIZE
         valid << [new_row, new_col]
       end
-      valid
     end
-
+    valid
   end
 
   def initialize(start_pos)
@@ -22,7 +23,27 @@ class KnightPathFinder
   end
 
   def build_move_tree
+    #Set queue equal to first node
+    queue = [root_node]
 
+    until queue.empty?
+      #save first node in line (queue)
+      current_node = queue.shift
+      #Get all possible moves for current node
+      new_moves = new_move_positions(current_node.value)
+      #if there are new moves, proceed, if not, move on to next node
+      if new_moves.length > 0
+        #Create a child for the current node for each possible move
+        #Add child to queue so we process them
+        new_moves.each do |new_move|
+          child = PolyTreeNode.new(new_move)
+          current_node.add_child(child)
+          queue << child
+        end
+      end
+    end
+    #return root node which is now populated treecd
+    root_node
   end
 
   def new_move_positions(pos)
@@ -40,5 +61,8 @@ class KnightPathFinder
   end
 
   private
-  attr_reader :considered_positions
+  attr_reader :considered_positions, :root_node
 end
+
+start = KnightPathFinder.new([0, 0])
+p start
