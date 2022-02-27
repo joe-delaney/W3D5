@@ -44,12 +44,12 @@ class PolyTreeNode
     queue = [self]
     until queue.empty?
       el = queue.shift
-      if el != target_value
+      if el.value != target_value
         el.children.each do |child|
           queue.push(child)
         end
       else
-        return self
+        return el
       end
     end
     return nil
