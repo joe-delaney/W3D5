@@ -54,11 +54,6 @@ class PolyTreeNode
     end
     return nil
   end
-
-
-
-
-  
 end
 
 n1 = PolyTreeNode.new("root1")
